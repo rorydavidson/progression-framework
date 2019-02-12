@@ -1,10 +1,10 @@
 ---
-path: "/frameworks/engineering/web"
+path: "/engineering/web"
 title: "🌐 Web Engineering Framework"
 sidebarTitle: "🌐 Web"
 sidebarGroup: "engineering"
 yaml: false
-levels: null
+levels:
 ---
 Check out the original web engineering framework [here](https://eng-progression.monzo.com/framework/web/).
 
@@ -14,7 +14,7 @@ Check out the original web engineering framework [here](https://eng-progression.
 
 - Learns to write correct JavaScript following guidance and training materials
 
-- Uses git to manage the development workflow effectivly
+- Uses git to manage the development workflow effectively
 
 	> **Example**
 	>
@@ -134,7 +134,7 @@ Check out the original web engineering framework [here](https://eng-progression.
 
 - Identifies obvious deficiencies in the development processes and supports activities to improve them
 
-- Assists more experiences engineers on the design of larger features
+- Assists more experienced engineers on the design of larger features
 
 - Modifies and improves code outside of the developer abstractions and reasons about the improvements effectively
 
@@ -161,12 +161,12 @@ Check out the original web engineering framework [here](https://eng-progression.
 ### Impact
 - Delivers large well-defined tasks and solves small scope not-well-defined problems
 
-- Contributes to writing RFCs (Co-authors with more experienced Engineer)
+- Contributes to writing proposals (Co-authors with more experienced Engineer)
 
 - Breaks down large problems into smaller iterative steps across multiple PRs
 
 ### Influence
-- Provides valuable input to RFCs from their team
+- Provides valuable input to proposals from their team
 
 - Proactively improves modules, services, systems and codebases they encounter, 'this doesn't make sense, I'm going to do something about it'
 
@@ -223,7 +223,7 @@ Check out the original web engineering framework [here](https://eng-progression.
 ### Impact
 - Solves ambiguous problems
 
-- Leads writing small/medium scope RFCs
+- Leads writing small/medium scope proposals
 
 - Thrown at fires and resolves / contributes heavily to resolving them
 
@@ -318,7 +318,7 @@ Check out the original web engineering framework [here](https://eng-progression.
 
 - Leading large scale technical infrastructure projects (level 5 would originate or complete, probably)
 
-- Leads writing large scope RFCs
+- Leads writing large scope proposals
 
 - Breaks down large long-lasting projects into sensible discrete chunks that compound to achieve a large goal
 

@@ -1,8 +1,8 @@
 ---
-path: "/frameworks/executive-support"
+path: "/executive-support"
 title: "👭 Executive Support Framework"
 sidebarTitle: "👭 Executive Support"
-sidebarGroup: null
+sidebarGroup:
 yaml: true
 levels: 5
 topics:
@@ -45,14 +45,21 @@ topics:
       - level: 5
         criteria:
           - "Key contributor to successfully achieving company goals relevant to your executive (where without *your* input, it's unlikely those goals would have been achieved)"
-          - "Owns projects that imact Monzo as a whole, leveraging stakeholders to deliver results."
+          - "Owns projects that impact Monzo as a whole, leveraging stakeholders to deliver results."
   - name: "knowledge"
     title:
     description:
     content:
       - level: 1
-        criteria:
-          - "Learning how to use all Monzo's internal tools (gsuite, slack, lattice, peakon, confluence, notion, JIRA)"
+        exampleCriteria:
+          - criteria: "Learning how to use all Monzo's internal tools"
+            examples:
+              - "GSuite"
+              - "Slack"
+              - "Lattice"
+              - "Peakon"
+              - "Notion"
+              - "JIRA"
       - level: 2
         criteria:
           - "Working knowledge of all Monzo tools"
