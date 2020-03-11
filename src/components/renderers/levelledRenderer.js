@@ -3,29 +3,26 @@ import * as React from 'react'
 import * as R from 'ramda'
 import Masonry from 'react-masonry-css'
 import { contains, match } from '../../utils/arrayUtils'
-import toTitleCase from '../../utils/toTitleCase'
-import LevelsGroup from '../levelsGroup'
+import Header from '../header'
 import {
   Card,
   CardContentList,
-  CardSubtitle,
   CardTitle,
   CardTitleGroup,
   CenteredElement,
   FrameworkCard,
   PrimaryView,
   Subtitle,
-  Title,
-  FrameworkTitleGroup,
-  FrameworkHeader,
   ExamplesText,
   BREAKPOINT_TABLET,
   BREAKPOINT_DESKTOP,
+  MarkdownContent,
 } from '../styles'
 
 type Props = {
   pageData: Object,
   genericData: Object,
+  html: Object,
 }
 
 type State = {
@@ -87,58 +84,70 @@ class ExampleCriteriaComponent extends React.Component<
 export default class LevelledRenderer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    const genericDataTitles = props.genericData.topics.map(obj => obj.name)
-    const pageDataTitles = props.pageData.topics.map(obj => obj.name)
+    const genericDataTitles = props.genericData.topics.map(obj => obj.title)
+    const pageDataTitles = props.pageData.topics.map(obj => obj.title)
+    const genericDataNames = props.genericData.topics.map(obj => obj.name)
+    const pageDataNames = props.pageData.topics.map(obj => obj.name)
+
+    // isGeneric checks to see if the variable names and the "Title" is present on both the generic
+    // and page date we receive. This should only flag the generic framework, unless someone redeclares the
+    // framework titles and variable names in a new framework (which should not get past review)
+    const matchingNames = match(genericDataNames, pageDataNames)
+    const matchingTitles = match(genericDataTitles, pageDataTitles)
+    const isGeneric = matchingNames && matchingTitles
+
+    // inheritsGeneric checks to see if some of the page data and generic framework variable
+    // names are shared which is how our inheritance works), but the titles do not exactly match
+    const containingNames = contains(genericDataNames, pageDataNames)
+    const inheritsGeneric = containingNames && !matchingTitles
 
     this.state = {
       level: null,
-      isGeneric: match(genericDataTitles, pageDataTitles),
-      inheritsGeneric:
-        contains(genericDataTitles, pageDataTitles) &&
-        !match(genericDataTitles, pageDataTitles),
+      isGeneric,
+      inheritsGeneric,
     }
   }
 
-  handleClick = (val: number) => (event: SyntheticUIEvent<>) => {
+  handleClick = (val: ?number) => (event: SyntheticUIEvent<>) => {
     event.preventDefault()
     this.setState({
       level: val,
     })
   }
 
-  renderDescriptionAndTitle() {
+  renderPageHeader() {
     const { pageData } = this.props
     const { level } = this.state
 
     return (
-      <React.Fragment>
-        <FrameworkHeader>
-          <FrameworkTitleGroup>
-            <Subtitle small>
-              {pageData.sidebarGroup != null
-                ? toTitleCase(pageData.sidebarGroup)
-                : null}
-            </Subtitle>
-            <Title small>{pageData.title}</Title>
-          </FrameworkTitleGroup>
-          <LevelsGroup
-            onClickHandler={this.handleClick}
-            levels={pageData.levels}
-            activeLevel={level}
-          />
-        </FrameworkHeader>
-      </React.Fragment>
+      <Header
+        onClickHandler={this.handleClick}
+        pageData={pageData}
+        activeLevel={level}
+      />
     )
   }
 
   renderEmptyState() {
-    return (
-      <CenteredElement>
+    const { pageData, html } = this.props
+
+    if (pageData.homepage === true && html !== '') {
+      return (
         <Card>
-          <Subtitle>To view a framework, please select a level above.</Subtitle>
+          <MarkdownContent dangerouslySetInnerHTML={{ __html: html }} />
         </Card>
-      </CenteredElement>
-    )
+      )
+    } else {
+      return (
+        <CenteredElement>
+          <Card>
+            <Subtitle>
+              To view a framework, please select a level above.
+            </Subtitle>
+          </Card>
+        </CenteredElement>
+      )
+    }
   }
 
   renderFramework() {
@@ -167,10 +176,6 @@ export default class LevelledRenderer extends React.Component<Props, State> {
       genericTopic != null && !R.isEmpty(genericTopic)
         ? genericTopic.map(obj => obj.title)[0]
         : topic.title
-    const description =
-      genericTopic != null && !R.isEmpty(genericTopic)
-        ? genericTopic.map(obj => obj.description)[0]
-        : topic.description
 
     const frameworkCriteria = topic.content
       .filter(objContent => objContent.level === level)
@@ -217,7 +222,6 @@ export default class LevelledRenderer extends React.Component<Props, State> {
         <FrameworkCard key={topic.name}>
           <CardTitleGroup>
             <CardTitle>{title}</CardTitle>
-            <CardSubtitle>{description}</CardSubtitle>
           </CardTitleGroup>
           <CardContentList>
             {frameworkCriteria != null && !R.isEmpty(frameworkCriteria)
@@ -244,7 +248,7 @@ export default class LevelledRenderer extends React.Component<Props, State> {
 
     return (
       <PrimaryView>
-        {this.renderDescriptionAndTitle()}
+        {this.renderPageHeader()}
         {level != null ? this.renderFramework() : this.renderEmptyState()}
       </PrimaryView>
     )

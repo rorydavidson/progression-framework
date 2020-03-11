@@ -482,35 +482,6 @@ export const DescriptionTitleGroup = styled.div`
   z-index: 1;
 `
 
-export const DescriptionContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-
-  @media all and (max-width: ${BREAKPOINT_MOBILE}px) {
-    display: none;
-  }
-
-  @media (${PORTRAIT}) {
-    @media all and (max-width: ${BREAKPOINT_DESKTOP}px) {
-      display: none;
-    }
-  }
-`
-
-export const DescriptionIllustration = styled.img`
-  height: 60vh;
-
-  @media all and (max-width: ${BREAKPOINT_MOBILE}px) {
-    display: none;
-  }
-  @media (${PORTRAIT}) {
-    @media all and (max-width: ${BREAKPOINT_DESKTOP}px) {
-      display: none;
-    }
-  }
-`
-
 export const Description = styled.div`
   position: relative;
   color: #34495e;
@@ -566,6 +537,11 @@ export const FrameworkTitleGroup = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 `
 
 export const FrameworkCard = styled(Card)`
@@ -587,14 +563,6 @@ export const CardTitle = styled.p`
   color: ${MIDNIGHT_SKY};
   margin-top: 0;
   font-size: 1.4rem;
-`
-
-export const CardSubtitle = styled.h4`
-  font-family: 'MaisonNeue', 'HelveticaNeue', 'Helvetica Neue', 'Helvetica',
-    'Arial', sans-serif;
-  font-weight: 600;
-  color: ${GREY_BLUE};
-  margin-top: 0;
 `
 
 export const CardTitleGroup = styled.div`

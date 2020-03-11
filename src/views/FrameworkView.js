@@ -26,6 +26,7 @@ class View extends React.Component<Props> {
           <LevelledRenderer
             pageData={pageFrontmatter}
             genericData={genericFrontmatter}
+            html={html}
           />
         ) : (
           <TextRenderer data={pageFrontmatter} html={html} />
@@ -63,10 +64,10 @@ export const pageQuery = graphql`
         sidebarGroup
         yaml
         levels
+        homepage
         topics @include(if: $isYaml) {
           name
           title
-          description
           content {
             level
             criteria
@@ -87,10 +88,10 @@ export const pageQuery = graphql`
         sidebarGroup
         yaml
         levels
+        homepage
         topics @include(if: $isYaml) {
           name
           title
-          description
           content {
             level
             criteria

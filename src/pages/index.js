@@ -3,7 +3,6 @@ import * as React from 'react'
 import { graphql } from 'gatsby'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import illustration from '../images/intro_illustration.svg'
 import Layout from '../components/layout'
 import {
   Subtitle,
@@ -11,9 +10,7 @@ import {
   DescriptionView,
   Description,
   DescriptionText,
-  DescriptionIllustration,
   DescriptionTitleGroup,
-  DescriptionContainer,
 } from '../components/styles'
 import '../css/main.min.css'
 
@@ -21,44 +18,16 @@ type Props = {
   data: Object,
 }
 
-type State = {
-  titleGroupHeight: string,
-  descriptionHeight: string,
-}
-
-export default class Index extends React.Component<Props, State> {
-  titleGroup: ?Object
-  description: ?Object
-  state = {
-    titleGroupHeight: '0',
-    descriptionHeight: '0',
-  }
-
-  componentDidMount() {
-    if (this.titleGroup != null && this.description != null) {
-      const titleGroupHeight = this.titleGroup.clientHeight
-      const descriptionHeight = this.description.clientHeight
-      this.setState({ titleGroupHeight, descriptionHeight })
-    }
-  }
-
+export default class Index extends React.Component<Props> {
   render() {
     return (
       <Layout data={this.props.data}>
         <DescriptionView>
-          <DescriptionTitleGroup
-            ref={titleGroup => {
-              this.titleGroup = titleGroup
-            }}
-          >
+          <DescriptionTitleGroup>
             <Subtitle>Welcome To</Subtitle>
             <Title>Progression at Monzo 🎉</Title>
           </DescriptionTitleGroup>
-          <Description
-            ref={description => {
-              this.description = description
-            }}
-          >
+          <Description>
             <DescriptionText>
               This is where we keep the progression frameworks we use at Monzo.
             </DescriptionText>
@@ -100,13 +69,6 @@ export default class Index extends React.Component<Props, State> {
               Take a look around and let us know what you think! 🚀
             </DescriptionText>
           </Description>
-          <DescriptionContainer>
-            <DescriptionIllustration
-              src={illustration}
-              titleGroupHeight={this.state.titleGroupHeight}
-              descriptionHeight={this.state.descriptionHeight}
-            />
-          </DescriptionContainer>
         </DescriptionView>
       </Layout>
     )
